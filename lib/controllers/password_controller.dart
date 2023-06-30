@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:password_manager/managers/shared_preference_manager.dart';
 
 class PasswordController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
@@ -17,6 +18,7 @@ class PasswordController extends GetxController {
         middleText: 'lengkapi password terlebih dahulu.',
       );
     } else if (password == confirmPassword) {
+      SharedPreferencesManager.savePassword(password);
       Get.defaultDialog(
         title: 'Success',
         middleText: 'Password and Confirmation Password are the same.',

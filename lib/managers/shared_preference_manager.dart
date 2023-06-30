@@ -1,4 +1,7 @@
+import 'package:password_manager/pages/passwordsPage.dart';
+import 'package:password_manager/pages/registerPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
 
 class SharedPreferencesManager {
   static const String _keyPassword = 'password';
@@ -7,6 +10,7 @@ class SharedPreferencesManager {
   static Future<void> savePassword(String password) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(_keyPassword, password);
+    Get.to(PasswordsPage());
   }
 
   // Fungsi untuk mengambil password dari SharedPreferences
@@ -25,5 +29,6 @@ class SharedPreferencesManager {
   static Future<void> removePassword() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(_keyPassword);
+    Get.to(RegisterPage());
   }
 }

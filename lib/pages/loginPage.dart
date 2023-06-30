@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:password_manager/managers/shared_preference_manager.dart';
 import 'package:password_manager/pages/passwordsPage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -74,17 +75,22 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 10,
             ),
-            Container(
-              margin: EdgeInsets.all(20),
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height / 4,
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: Center(
-                child: Text(
-                  text,
-                  style: TextStyle(fontSize: 15),
+            GestureDetector(
+              onLongPress: () {
+                SharedPreferencesManager.removePassword();
+              },
+              child: Container(
+                margin: EdgeInsets.all(20),
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height / 4,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Center(
+                  child: Text(
+                    text,
+                    style: TextStyle(fontSize: 15),
+                  ),
                 ),
               ),
             )
