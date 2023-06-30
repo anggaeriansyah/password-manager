@@ -3,14 +3,14 @@ import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:password_manager/pages/passwordsPage.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LoginPageState extends State<LoginPage> {
   LocalAuthentication localAuthentication = LocalAuthentication();
 
   bool isAvailable = false;
