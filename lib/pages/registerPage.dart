@@ -5,15 +5,19 @@ import 'package:password_manager/controllers/password_controller.dart';
 import 'package:password_manager/managers/shared_preference_manager.dart';
 import 'package:get/get.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  bool _obscureText = false;
 
   @override
   Widget build(BuildContext context) {
     // final PasswordController passwordController = Get.put(PasswordController());
     final PasswordController passwordController = Get.find();
-    // TextEditingController passwordController = TextEditingController();
-    // TextEditingController confirmPasswordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: Text('Register Password'),
@@ -24,22 +28,78 @@ class RegisterPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextField(
+              TextFormField(
                 controller: passwordController.passwordController,
-                obscureText: true,
-                enableInteractiveSelection: false,
+                cursorColor: Theme.of(context).primaryColor,
                 decoration: InputDecoration(
                   labelText: 'Password',
+                  // labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+
+                  floatingLabelStyle:
+                      TextStyle(color: Theme.of(context).primaryColor),
+                  // enabledBorder: UnderlineInputBorder(
+                  //   borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                  // ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Theme.of(context).primaryColor),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: _obscureText
+                        ? Icon(Icons.visibility,
+                            color: Theme.of(context).primaryColor)
+                        : Icon(
+                            Icons.visibility_off,
+                            color: Colors.grey,
+                          ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(height: 16.0),
-              TextField(
-                controller: passwordController.confirmPasswordController,
                 obscureText: true,
-                enableInteractiveSelection: false,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Password harus diisi';
+                  }
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: passwordController.confirmPasswordController,
+                cursorColor: Theme.of(context).primaryColor,
                 decoration: InputDecoration(
-                  labelText: 'Confirm Password',
+                  labelText: 'Konfirmasi Password',
+                  floatingLabelStyle:
+                      TextStyle(color: Theme.of(context).primaryColor),
+                  // enabledBorder: UnderlineInputBorder(
+                  //   borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                  // ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: Theme.of(context).primaryColor),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: _obscureText
+                        ? Icon(Icons.visibility,
+                            color: Theme.of(context).primaryColor)
+                        : Icon(Icons.visibility_off, color: Colors.grey),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText;
+                      });
+                    },
+                  ),
                 ),
+                obscureText: true,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Konfirmasi password harus diisi';
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: 16.0),
               ElevatedButton(
