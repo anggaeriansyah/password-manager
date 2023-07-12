@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() {});
                       }
                     : null,
-                child: const Text('Check FingerPrint')),
+                child: const Text('Unlock with FingerPrint')),
             SizedBox(
               height: 10,
             ),
