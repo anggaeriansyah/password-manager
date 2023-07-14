@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:password_manager/services/apiService.dart';
 import 'package:password_manager/models/color_model.dart';
+import 'package:password_manager/bloc/counter_bloc.dart';
 
 class PasswordsPage extends StatefulWidget {
   const PasswordsPage({Key? key}) : super(key: key);
@@ -15,7 +17,7 @@ class _PasswordsPageState extends State<PasswordsPage> {
   @override
   void initState() {
     super.initState();
-    Data();
+    // Data();
   }
 
   Future<void> Data() async {
@@ -39,22 +41,55 @@ class _PasswordsPageState extends State<PasswordsPage> {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text('List Warna'),
+          title: Text('Password Manager'),
         ),
-        body: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            final item = data[index];
-            return ListTile(
-              title: Text(
-                item['name'],
-                style: TextStyle(color: Colors.white),
-              ),
-              subtitle: Text(item['color']),
-            );
-          },
+        body: Center(
+          child: BlocBuilder<CounterBloc, CounterState>(
+            builder: (context, state) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Test Bloc"),
+                  Text(state.nomor.toString()),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FloatingActionButton(
+                        onPressed: () {
+                          BlocProvider.of<CounterBloc>(context)
+                              .add(IncrementEvent());
+                        },
+                        child: Icon(Icons.add),
+                      ),
+                      SizedBox(width: 16),
+                      FloatingActionButton(
+                        onPressed: () {
+                          BlocProvider.of<CounterBloc>(context)
+                              .add(DecrementEvent());
+                        },
+                        child: Icon(Icons.remove),
+                      ),
+                    ],
+                  ),
+                ],
+              );
+            },
+          ),
         ),
+        // body: ListView.builder(
+        //   physics: const BouncingScrollPhysics(),
+        //   itemCount: data.length,
+        //   itemBuilder: (context, index) {
+        //     final item = data[index];
+        //     return ListTile(
+        //       title: Text(
+        //         item['name'],
+        //         style: TextStyle(color: Colors.white),
+        //       ),
+        //       subtitle: Text(item['color']),
+        //     );
+        //   },
+        // ),
       ),
     );
   }

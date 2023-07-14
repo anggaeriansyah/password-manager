@@ -38,6 +38,7 @@ dev_dependencies:
   local_auth: ^1.1.11
   shared_preferences: ^2.1.0
   http: ^0.13.4
+  flutter_bloc: ^7.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
